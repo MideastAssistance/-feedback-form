@@ -1,96 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Feedback Form with Star Ratings</title>
-  <style>
-    .stars {
-      display: flex;
-      gap: 5px;
-    }
-    .stars label {
-      font-size: 30px;
-      cursor: pointer;
-    }
-    .stars .filled {
-      color: gold;
-    }
-    .stars label:hover {
-      color: gold;
-    }
-  </style>
-</head>
-<body>
-
-<form id="feedbackForm" action="" method="get">
-  <h2>Feedback Form</h2>
-  
-  <div id="rating">
-    <label>Rating:</label>
-    <div class="stars" id="starsDisplay">
-      <label for="star5">☆</label>
-      <label for="star4">☆</label>
-      <label for="star3">☆</label>
-      <label for="star2">☆</label>
-      <label for="star1">☆</label>
-    </div>
-    <input type="radio" name="rating" value="Excellent" id="star5"> Excellent
-    <input type="radio" name="rating" value="Good" id="star4"> Good
-    <input type="radio" name="rating" value="Okay" id="star3"> Okay
-    <input type="radio" name="rating" value="Bad" id="star2"> Bad
-    <input type="radio" name="rating" value="Very bad" id="star1"> Very Bad
-  </div>
-
-  <div id="ease">
-    <label>Ease of use:</label>
-    <select name="ease">
-      <option value="Very easy">Very easy</option>
-      <option value="It’s okay">It’s okay</option>
-      <option value="Sometimes confusing">Sometimes confusing</option>
-      <option value="Hard to use">Hard to use</option>
-    </select>
-  </div>
-
-  <div id="ui">
-    <label>UI:</label>
-    <select name="ui">
-      <option value="Yes">Yes</option>
-      <option value="It’s fine">It’s fine</option>
-      <option value="Needs to look better">Needs to look better</option>
-    </select>
-  </div>
-
-  <div id="reports">
-    <label>Reports:</label>
-    <select name="reports">
-      <option value="Yes">Yes</option>
-      <option value="Somewhat">Somewhat</option>
-      <option value="Not really">Not really</option>
-      <option value="I don’t use them">I don’t use them</option>
-    </select>
-  </div>
-
-  <div>
-    <label for="additional">Do you have additional comments or feedback?</label>
-    <input type="checkbox" id="additional" name="additional">
-  </div>
-  
-  <div id="otherFeatures-description" style="display:none;">
-    <textarea name="additional-comments" placeholder="Enter your comments"></textarea>
-  </div>
-
-  <div id="avgScore"></div>
-
-  <button type="submit">Submit</button>
-</form>
-
 <script>
   const form = document.getElementById('feedbackForm');
   const stars = document.querySelectorAll('#starsDisplay label');
   const avgScore = document.getElementById('avgScore');
-  const otherCheckbox = document.getElementById('additional');
-  
+  const otherCheckbox = document.getElementById('otherFeaturesCheckbox');
+
   const rates = {
     rating: { 'Excellent':5, 'Good':4, 'Okay':3, 'Bad':2, 'Very bad':1 },
     ease: { 'Very easy':5, 'It’s okay':4, 'Sometimes confusing':3, 'Hard to use':2 },
@@ -145,6 +58,3 @@
 
   window.addEventListener('load', renderStarsFromQuery);
 </script>
-
-</body>
-</html>
