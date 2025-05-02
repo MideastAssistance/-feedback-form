@@ -182,10 +182,14 @@
       else if(id==='ui') show=['It’s fine','Needs to look better'].includes(val);
       else if(id==='reports') show=['Somewhat','Not really'].includes(val);
       else if(id==='additional') show=['Yes'].includes(val);
-      desc.style.display = show ? 'block' : 'none';
+      desc.style.display=show?'block':'none';
     }
 
-    form.addEventListener('submit', updateStars);
+    form.addEventListener('change',()=>{
+      updateStars();
+      document.getElementById('otherFeatures-description').style.display=otherCheckbox.checked?'block':'none';
+    });
+    window.addEventListener('load',()=>form.dispatchEvent(new Event('change')));
   </script>
 </body>
 </html>
