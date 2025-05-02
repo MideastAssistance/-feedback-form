@@ -161,10 +161,10 @@
     };
 
     function updateStars() {
-      const r = rates.rating[form.rating.value]||0;
-      const e = rates.ease[form.ease.value]||0;
-      const u = rates.ui[form.ui.value]||0;
-      const rp= rates.reports[form.reports.value]||0;
+      const r = rates.1. How would you rate the system overall?[form.rating.value]||0;
+      const e = rates.2. Is the system easy to use?[form.ease.value]||0;
+      const u = rates.3. Do you like how the system looks?[form.ui.value]||0;
+      const rp= rates.4. Are the reports easy to understand?[form.reports.value]||0;
       const avg=(r+e+u+rp)/4;
       stars.forEach((s,i)=>s.classList.toggle('filled',i<Math.round(avg)));
       avgScore.textContent=avg.toFixed(1);
