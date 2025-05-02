@@ -173,12 +173,29 @@
       else if(id==='additional') show=['Yes'].includes(val);
       desc.style.display=show?'block':'none';
     }
-
     form.addEventListener('change',()=>{
       updateStars();
       document.getElementById('otherFeatures-description').style.display=otherCheckbox.checked?'block':'none';
     });
     window.addEventListener('load',()=>form.dispatchEvent(new Event('change')));
+
+   // Function to handle redirection
+  function redirectToThankYouPage(event) {
+    // Prevent the form from submitting immediately
+    event.preventDefault();
+
+    // Redirect to a thank you page (change the URL to your desired redirect link)
+    window.location.href = ""; 
+
+    // Optionally, you can submit the form here using AJAX or after a short delay.
+    // For example, after a 2-second delay:
+    setTimeout(function() {
+      event.target.submit();  // Submit the form after redirecting
+    }, 2000);  // Adjust delay as necessary
+  }
+
+  // Attach the redirection function to the form
+  document.getElementById('feedbackForm').addEventListener('submit', redirectToThankYouPage);
   </script>
 </body>
 </html>
