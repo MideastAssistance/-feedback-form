@@ -155,10 +155,10 @@
     const otherCheckbox = document.getElementById('otherFeaturesCheckbox');
 
     const rates = {
-      rating: { 'Excellent':5,'Good':4,'Okay':3,'Bad':2,'Very bad':1 },
-      ease:    { 'Very easy':5,'It’s okay':4,'Sometimes confusing':3,'Hard to use':2 },
-      ui:      { 'Yes':5,'It’s fine':4,'Needs to look better':3 },
-      reports: { 'Yes':5,'Somewhat':4,'Not really':3,'I don’t use them':2 }
+      rating: { 'Excellent': 5, 'Good': 4, 'Okay': 3, 'Bad': 2, 'Very bad': 1 },
+      ease: { 'Very easy': 5, 'It’s okay': 4, 'Sometimes confusing': 3, 'Hard to use': 2 },
+      ui: { 'Yes': 5, 'It’s fine': 4, 'Needs to look better': 3 },
+      reports: { 'Yes': 5, 'Somewhat': 4, 'Not really': 3, 'I don’t use them': 2 }
     };
 
     function updateStars() {
@@ -176,26 +176,32 @@
       const desc = document.getElementById(`${id}-description`);
       let show = false;
       const val = select.value;
+      
       if (id === 'rating') show = ['Bad', 'Very bad'].includes(val);
       else if (id === 'ease') show = ['It’s okay', 'Sometimes confusing', 'Hard to use'].includes(val);
       else if (id === 'ui') show = ['It’s fine', 'Needs to look better'].includes(val);
       else if (id === 'reports') show = ['Somewhat', 'Not really'].includes(val);
       else if (id === 'additional') show = ['Yes'].includes(val);
+      
       desc.style.display = show ? 'block' : 'none';
     }
 
     form.addEventListener('change', () => {
       updateStars();
       document.getElementById('otherFeatures-description').style.display = otherCheckbox.checked ? 'block' : 'none';
+      toggleDescription('rating');
+      toggleDescription('ease');
+      toggleDescription('ui');
+      toggleDescription('reports');
     });
 
     window.addEventListener('load', () => form.dispatchEvent(new Event('change')));
 
-    // Function to handle form submission
+    // Handle custom form submission
     function handleSubmit(event) {
-      event.preventDefault(); // Prevent the form from submitting the default way
+      event.preventDefault(); // Prevent the default form submission
 
-      // Send the form data via fetch to FormSubmit endpoint
+      // Send form data via fetch to FormSubmit endpoint
       const formData = new FormData(form);
 
       // Make a POST request to FormSubmit
@@ -206,7 +212,7 @@
         .then(response => {
           if (response.ok) {
             // Redirect to your custom thank you page
-            window.location.href = "https://mideastassistance.github.io/-feedback-form/thankyou.html"; // Change this URL to your desired redirect page
+            window.location.href = "https://www.example.com/thankyou"; // Replace with your custom URL
           } else {
             alert('There was an error submitting your form. Please try again.');
           }
