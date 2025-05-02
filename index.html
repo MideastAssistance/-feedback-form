@@ -35,22 +35,21 @@
     <h2>Assistance System Feedback Form</h2>
   
     <form id="feedbackForm" action="https://formsubmit.co/it@mideast-assistance.com" method="POST">
-      
-     <!-- FormSubmit hidden fields -->
-     <input type="hidden" name="_subject" value="New Assistance System Feedback">
-     <input type="hidden" name="_template" value="table">
-     <input type="hidden" name="_captcha" value="false">  
-     <input type="hidden" name="_redirect" value="https://mideastassistance.github.io/-feedback-form/Thankyou.html"> <!-- Redirect after submission -->
-
-      <!-- Email Input for FormSubmit -->
+    <!-- Email Input for FormSubmit -->
       <label>Your Name</label>
       <input type="text" name="name" required />
       <label>Your Position</label>
       <input type="text" name="position" required />
       <label>Your Email</label>
       <input type="email" name="email" required />
+      
+     <!-- FormSubmit hidden fields -->
+     <input type="hidden" name="_subject" value="New Assistance System Feedback">
+     <input type="hidden" name="_template" value="table">
+     <input type="hidden" name="_captcha" value="false">  
+     <input type="hidden" name="_redirect" value="https://mideastassistance.github.io/-feedback-form/thankyou.html"> <!-- Redirect after submission -->
 
-      <!-- Q1 -->
+           <!-- Q1 -->
       <label>1. How would you rate the system overall?</label>
       <select name="rating" required onchange="toggleDescription('rating')">
         <option value="" disabled selected>-Select-</option>
