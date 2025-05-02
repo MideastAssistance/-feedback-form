@@ -38,6 +38,7 @@
       <input type="hidden" name="_subject" value="New Assistance System Feedback">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_captcha" value="false">  
+      <input type="hidden" name="_redirect" value="https://mideastassistance.github.io/-feedback-form/Thankyou.html"> <!-- Redirect after submission -->
 
       <label>Your Name</label>
       <input type="text" name="name" required>
@@ -122,8 +123,6 @@
         <label>Please describe:</label>
         <textarea name="additional_description" rows="3"></textarea>
       </div>
-
-      <button type="submit">Submit Feedback</button>
       <!-- Stars & Average -->
       <div class="stars" id="starsDisplay">
         <label>&#9733;</label>
@@ -186,14 +185,11 @@
 
     // Redirect to a thank you page (change the URL to your desired redirect link)
     window.location.href = ""; 
-
     // Optionally, you can submit the form here using AJAX or after a short delay.
-    // For example, after a 2-second delay:
     setTimeout(function() {
       event.target.submit();  // Submit the form after redirecting
     }, 2000);  // Adjust delay as necessary
   }
-
   // Attach the redirection function to the form
   document.getElementById('feedbackForm').addEventListener('submit', redirectToThankYouPage);
   </script>
