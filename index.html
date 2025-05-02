@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Assistance System Feedback</title>
   <style>
     body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px; }
-    .container { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    .container { max-width: 700px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
     h2 { text-align: center; color: #007BFF; }
     label { display: block; margin: 15px 0 5px; font-weight: bold; }
     input, textarea, select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px; }
@@ -15,7 +15,7 @@
     .checkbox-item input { margin-right: 10px; width: 20px; height: 20px; }
     .dynamic-textarea { display: none; margin-top: 10px; }
     .stars { display: flex; justify-content: center; gap: 5px; margin-top: 20px; }
-    .stars label { font-size: 24px; color: #ccc; }
+    .stars label { font-size: 24px; color: #ccc; cursor: pointer; }
     .stars label.filled { color: gold; }
     .average-score { text-align: center; margin-top: 10px; font-size: 18px; }
     button { background: #007BFF; color: white; padding: 10px 15px; border: none; border-radius: 6px; cursor: pointer; margin-top: 20px; width: 100%; }
@@ -24,32 +24,36 @@
 </head>
 <body>
   <div class="container">
-    <table>
-      <tr>
-        <td><img alt="" src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/Mideast%20Logo.png" style="width: 186px; height: 45px;" /></td>
-        <td>&nbsp;<img alt="" src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/White.png" style="width: 211.333px; height: 114.333px;" /></td>
-        <td><img alt="" src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/ian-logo-for-registration-(7x7)-3.jpg" style="width: 183px; height: 95.6667px;" /></td>
-      </tr>
-    </table>
-    <h2>Assistance System Feedback Form</h2>
-
     <form id="feedbackForm" action="https://formsubmit.co/it@mideast-assistance.com" method="POST">
-      <label>Your Name</label>
-      <input type="text" name="name" required />
+      <table>
+        <tr>
+          <td><img src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/Mideast%20Logo.png" style="width: 186px; height: 45px;"></td>
+          <td>&nbsp;<img src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/White.png" style="width: 211.333px; height: 114.333px;"></td>
+          <td><img src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/ian-logo-for-registration-(7x7)-3.jpg" style="width: 183px; height: 95.6667px;"></td>
+        </tr>
+      </table>
 
-      <label>Your Position</label>
-      <input type="text" name="position" required />
-      
-      <label>Your Email</label>
-      <input type="email" name="email" required />
+      <h2>Assistance System Feedback Form</h2>
 
+      <!-- Hidden Inputs -->
       <input type="hidden" name="_subject" value="New Assistance System Feedback">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_redirect" value="https://mideastassistance.github.io/-feedback-form/thankyou.html">
 
+      <!-- Basic Info -->
+      <label>Your Name</label>
+      <input type="text" name="name" required>
+
+      <label>Your Position</label>
+      <input type="text" name="position" required>
+
+      <label>Your Email</label>
+      <input type="email" name="email" required>
+
+      <!-- Rating Questions with Toggle -->
       <label>1. How would you rate the system overall?</label>
-      <select name="rating" required onchange="toggleDescription('rating')">
+      <select name="rating" required onchange="toggleDescription(this, 'rating-description')">
         <option value="" disabled selected>-Select-</option>
         <option>Excellent</option>
         <option>Good</option>
@@ -63,7 +67,7 @@
       </div>
 
       <label>2. Is the system easy to use?</label>
-      <select name="ease" required onchange="toggleDescription('ease')">
+      <select name="ease" required onchange="toggleDescription(this, 'ease-description')">
         <option value="" disabled selected>-Select-</option>
         <option>Very easy</option>
         <option>It’s okay</option>
@@ -76,7 +80,7 @@
       </div>
 
       <label>3. Do you like how the system looks?</label>
-      <select name="ui" required onchange="toggleDescription('ui')">
+      <select name="ui" required onchange="toggleDescription(this, 'ui-description')">
         <option value="" disabled selected>-Select-</option>
         <option>Yes</option>
         <option>It’s fine</option>
@@ -88,7 +92,7 @@
       </div>
 
       <label>4. Are the reports easy to understand?</label>
-      <select name="reports" required onchange="toggleDescription('reports')">
+      <select name="reports" required onchange="toggleDescription(this, 'reports-description')">
         <option value="" disabled selected>-Select-</option>
         <option>Yes</option>
         <option>Somewhat</option>
@@ -100,57 +104,67 @@
         <textarea name="reports_description" rows="3"></textarea>
       </div>
 
+      <!-- Checkbox Question -->
       <label>5. Which parts of the system do you use the most?</label>
       <div class="grid-layout">
-        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Creating new cases" /> Creating new cases</div>
-        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Client/policy info" /> Client/policy info</div>
-        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Sending updates" /> Sending updates or notes</div>
-        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Partner/clinic database" /> Partner/clinic database</div>
-        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Reports" /> Reports and follow-up</div>
-        <div class="checkbox-item"><input type="checkbox" id="otherFeaturesCheckbox" name="features[]" value="Other features" /> Other features</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Creating new cases">Creating new cases</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Client/policy info">Client/policy info</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Sending updates">Sending updates or notes</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Partner/clinic database">Partner/clinic database</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Reports">Reports and follow-up</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Other">Other</div>
       </div>
 
-      <div id="otherFeaturesDescription" class="dynamic-textarea">
-        <label>If 'Other', please describe:</label>
-        <textarea name="other_features_description" rows="3"></textarea>
+      <!-- Rating with Stars -->
+      <label>6. Please rate the overall experience:</label>
+      <div class="stars" id="starRating">
+        <label data-value="1">&#9733;</label>
+        <label data-value="2">&#9733;</label>
+        <label data-value="3">&#9733;</label>
+        <label data-value="4">&#9733;</label>
+        <label data-value="5">&#9733;</label>
       </div>
+      <input type="hidden" name="star_rating" id="star_rating_value">
+      <div class="average-score" id="avgScore">Selected: 0 / 5</div>
 
+      <!-- Submit Button -->
       <button type="submit">Submit Feedback</button>
     </form>
   </div>
 
+  <!-- JavaScript -->
   <script>
-    document.getElementById('feedbackForm').addEventListener('submit', function (e) {
-      e.preventDefault(); // prevent default form submission
+    function toggleDescription(selectElement, targetId) {
+      const target = document.getElementById(targetId);
+      if (selectElement.value === 'Bad' || selectElement.value === 'Very bad' || selectElement.value === 'Not really' || selectElement.value === 'Needs to look better' || selectElement.value === 'Sometimes confusing') {
+        target.style.display = 'block';
+      } else {
+        target.style.display = 'none';
+        target.querySelector("textarea").value = '';
+      }
+    }
 
-      const form = e.target;
-      const formData = new FormData(form);
+    const stars = document.querySelectorAll("#starRating label");
+    const hiddenInput = document.getElementById("star_rating_value");
+    const avgScore = document.getElementById("avgScore");
 
-      fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      })
-      .then(response => {
-        if (response.ok) {
-          window.location.href = "https://mideastassistance.github.io/-feedback-form/thankyou.html";
-        } else {
-          alert("Something went wrong. Please try again later.");
+    stars.forEach(star => {
+      star.addEventListener("click", () => {
+        const value = parseInt(star.getAttribute("data-value"));
+        hiddenInput.value = value;
+        avgScore.textContent = `Selected: ${value} / 5`;
+        stars.forEach(s => s.classList.remove("filled"));
+        for (let i = 0; i < value; i++) {
+          stars[i].classList.add("filled");
         }
-      })
-      .catch(error => {
-        alert("There was a problem submitting the form.");
-        console.error(error);
       });
     });
 
-    function toggleDescription(fieldId) {
-      const select = document.querySelector(`[name="${fieldId}"]`);
-      const description = document.getElementById(`${fieldId}-description`);
-      if (select && description) {
-        description.style.display = select.value ? 'block' : 'none';
-      }
-    }
+    // Optional: force redirect on form submission
+    document.getElementById("feedbackForm").addEventListener("submit", function (e) {
+      // Let FormSubmit handle the request
+      // e.preventDefault(); // DO NOT UNCOMMENT THIS unless you're doing a custom AJAX call
+    });
   </script>
 </body>
 </html>
