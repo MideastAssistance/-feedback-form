@@ -175,11 +175,11 @@
       const desc = document.getElementById(`${id}-description`);
       let show = false;
       const val = select.value;
-      if (id==='rating') show=['Bad','Very bad'].includes(val);
-      else if(id==='ease') show=['It’s okay','Sometimes confusing','Hard to use'].includes(val);
-      else if(id==='ui') show=['It’s fine','Needs to look better'].includes(val);
-      else if(id==='reports') show=['Somewhat','Not really'].includes(val);
-      else if(id==='additional') show=['Yes'].includes(val);
+      if (id==='1. How would you rate the system overall?') show=['Bad','Very bad'].includes(val);
+      else if(id==='2. Is the system easy to use?') show=['It’s okay','Sometimes confusing','Hard to use'].includes(val);
+      else if(id==='3. Do you like how the system looks?') show=['It’s fine','Needs to look better'].includes(val);
+      else if(id==='4. Are the reports easy to understand?') show=['Somewhat','Not really'].includes(val);
+      else if(id==='6. Are there any new features you would like to see?') show=['Yes'].includes(val);
       desc.style.display=show?'block':'none';
     }
     function handleFormSubmit(event) {
