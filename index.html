@@ -24,8 +24,8 @@
 </head>
 <body>
   <div class="container">
-    <!-- Images Section -->
-    <table>
+     <!-- Images Section -->
+     <table>
       <tr>
         <td><img alt="" src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/Mideast%20Logo.png" style="width: 186px; height: 45px;" /></td>
         <td>&nbsp;<img alt="" src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/White.png" style="width: 211.333px; height: 114.333px;" /></td>
@@ -33,21 +33,22 @@
       </tr>
     </table>
     <h2>Assistance System Feedback Form</h2>
+  
     <form id="feedbackForm" action="https://formsubmit.co/it@mideast-assistance.com" method="POST">
-      <!-- FormSubmit hidden fields -->
-      <input type="hidden" name="_subject" value="New Assistance System Feedback">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_captcha" value="false">  
-      <input type="hidden" name="_redirect" value="https://mideastassistance.github.io/-feedback-form/Thankyou.html"> <!-- Redirect after submission -->
+      
+     <!-- FormSubmit hidden fields -->
+     <input type="hidden" name="_subject" value="New Assistance System Feedback">
+     <input type="hidden" name="_template" value="table">
+     <input type="hidden" name="_captcha" value="false">  
+     <input type="hidden" name="_redirect" value="https://mideastassistance.github.io/-feedback-form/Thankyou.html"> <!-- Redirect after submission -->
 
-      <label>Your Name</label>
-      <input type="text" name="name" required>
+      <!-- Email Input for FormSubmit -->
+      <label>Your Email</label>
+      <input type="email" name="email" required />
 
-      <label>Your Position</label>
-      <input type="text" name="position" required>
-
+      <!-- Q1 -->
       <label>1. How would you rate the system overall?</label>
-      <select name="1. How would you rate the system overall?" required onchange="toggleDescription('rating')">
+      <select name="rating" required onchange="toggleDescription('rating')">
         <option value="" disabled selected>-Select-</option>
         <option>Excellent</option>
         <option>Good</option>
@@ -60,8 +61,9 @@
         <textarea name="rating_description" rows="3"></textarea>
       </div>
 
+      <!-- Q2 -->
       <label>2. Is the system easy to use?</label>
-      <select name="2. Is the system easy to use?" required onchange="toggleDescription('ease')">
+      <select name="ease" required onchange="toggleDescription('ease')">
         <option value="" disabled selected>-Select-</option>
         <option>Very easy</option>
         <option>It’s okay</option>
@@ -73,8 +75,9 @@
         <textarea name="ease_description" rows="3"></textarea>
       </div>
 
+      <!-- Q3 -->
       <label>3. Do you like how the system looks?</label>
-      <select name="3. Do you like how the system looks?" required onchange="toggleDescription('ui')">
+      <select name="ui" required onchange="toggleDescription('ui')">
         <option value="" disabled selected>-Select-</option>
         <option>Yes</option>
         <option>It’s fine</option>
@@ -85,8 +88,9 @@
         <textarea name="ui_description" rows="3"></textarea>
       </div>
 
+      <!-- Q4 -->
       <label>4. Are the reports easy to understand?</label>
-      <select name="4. Are the reports easy to understand?" required onchange="toggleDescription('reports')">
+      <select name="reports" required onchange="toggleDescription('reports')">
         <option value="" disabled selected>-Select-</option>
         <option>Yes</option>
         <option>Somewhat</option>
@@ -98,22 +102,24 @@
         <textarea name="reports_description" rows="3"></textarea>
       </div>
 
+      <!-- Q5 -->
       <label>5. Which parts of the system do you use the most?</label>
       <div class="grid-layout">
-        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Creating new cases"> Creating new cases</div>
-        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Client/policy info"> Client/policy info</div>
-        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Sending updates"> Sending updates or notes</div>
-        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Partner/clinic database"> Partner/clinic database</div>
-        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Reports"> Reports and follow-up</div>
-        <div class="checkbox-item"><input type="checkbox" id="otherFeaturesCheckbox" name="features[]" value="Other features"> Other features</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Creating new cases" /> Creating new cases</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Client/policy info" /> Client/policy info</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Sending updates" /> Sending updates or notes</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Partner/clinic database" /> Partner/clinic database</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Reports" /> Reports and follow-up</div>
+        <div class="checkbox-item"><input type="checkbox" id="otherFeaturesCheckbox" name="features[]" value="Other features" /> Other features</div>
       </div>
       <div id="otherFeatures-description" class="dynamic-textarea">
         <label>Please describe:</label>
         <textarea name="other_features_description" rows="3"></textarea>
       </div>
 
+      <!-- Q6 -->
       <label>6. Are there any new features you would like to see?</label>
-      <select name="6. Are there any new features you would like to see?" required onchange="toggleDescription('additional')">
+      <select name="additional" required onchange="toggleDescription('additional')">
         <option value="" disabled selected>-Select-</option>
         <option>Yes</option>
         <option>Maybe later</option>
@@ -174,9 +180,11 @@
       desc.style.display=show?'block':'none';
     }
 
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('change',()=>{
       updateStars();
+      document.getElementById('otherFeatures-description').style.display=otherCheckbox.checked?'block':'none';
     });
+    window.addEventListener('load',()=>form.dispatchEvent(new Event('change')));
   </script>
 </body>
 </html>
