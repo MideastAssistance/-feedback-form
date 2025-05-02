@@ -24,7 +24,6 @@
 </head>
 <body>
   <div class="container">
-    <!-- Images Section -->
     <table>
       <tr>
         <td><img alt="" src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/Mideast%20Logo.png" style="width: 186px; height: 45px;" /></td>
@@ -35,7 +34,6 @@
     <h2>Assistance System Feedback Form</h2>
 
     <form id="feedbackForm" action="https://formsubmit.co/it@mideast-assistance.com" method="POST">
-      <!-- Email Input for FormSubmit -->
       <label>Your Name</label>
       <input type="text" name="name" required />
 
@@ -45,13 +43,11 @@
       <label>Your Email</label>
       <input type="email" name="email" required />
 
-      <!-- FormSubmit hidden fields -->
       <input type="hidden" name="_subject" value="New Assistance System Feedback">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_redirect" value="https://mideastassistance.github.io/-feedback-form/thankyou.html"> <!-- Redirect after submission -->
+      <input type="hidden" name="_redirect" value="https://mideastassistance.github.io/-feedback-form/thankyou.html">
 
-      <!-- Q1 -->
       <label>1. How would you rate the system overall?</label>
       <select name="rating" required onchange="toggleDescription('rating')">
         <option value="" disabled selected>-Select-</option>
@@ -66,7 +62,6 @@
         <textarea name="rating_description" rows="3"></textarea>
       </div>
 
-      <!-- Q2 -->
       <label>2. Is the system easy to use?</label>
       <select name="ease" required onchange="toggleDescription('ease')">
         <option value="" disabled selected>-Select-</option>
@@ -80,7 +75,6 @@
         <textarea name="ease_description" rows="3"></textarea>
       </div>
 
-      <!-- Q3 -->
       <label>3. Do you like how the system looks?</label>
       <select name="ui" required onchange="toggleDescription('ui')">
         <option value="" disabled selected>-Select-</option>
@@ -93,7 +87,6 @@
         <textarea name="ui_description" rows="3"></textarea>
       </div>
 
-      <!-- Q4 -->
       <label>4. Are the reports easy to understand?</label>
       <select name="reports" required onchange="toggleDescription('reports')">
         <option value="" disabled selected>-Select-</option>
@@ -107,7 +100,6 @@
         <textarea name="reports_description" rows="3"></textarea>
       </div>
 
-      <!-- Q5 -->
       <label>5. Which parts of the system do you use the most?</label>
       <div class="grid-layout">
         <div class="checkbox-item"><input type="checkbox" name="features[]" value="Creating new cases" /> Creating new cases</div>
@@ -117,79 +109,48 @@
         <div class="checkbox-item"><input type="checkbox" name="features[]" value="Reports" /> Reports and follow-up</div>
         <div class="checkbox-item"><input type="checkbox" id="otherFeaturesCheckbox" name="features[]" value="Other features" /> Other features</div>
       </div>
-      <div id="otherFeatures-description" class="dynamic-textarea">
-        <label>Please describe:</label>
+
+      <div id="otherFeaturesDescription" class="dynamic-textarea">
+        <label>If 'Other', please describe:</label>
         <textarea name="other_features_description" rows="3"></textarea>
       </div>
-
-      <!-- Q6 -->
-      <label>6. Are there any new features you would like to see?</label>
-      <select name="additional" required onchange="toggleDescription('additional')">
-        <option value="" disabled selected>-Select-</option>
-        <option>Yes</option>
-        <option>Maybe later</option>
-        <option>No</option>
-      </select>
-      <div id="additional-description" class="dynamic-textarea">
-        <label>Please describe:</label>
-        <textarea name="additional_description" rows="3"></textarea>
-      </div>
-
-      <!-- Stars & Average -->
-      <div class="stars" id="starsDisplay">
-        <label>&#9733;</label>
-        <label>&#9733;</label>
-        <label>&#9733;</label>
-        <label>&#9733;</label>
-        <label>&#9733;</label>
-      </div>
-      <div class="average-score">Average Score: <span id="avgScore">0</span>/5</div>
 
       <button type="submit">Submit Feedback</button>
     </form>
   </div>
 
   <script>
-    const form = document.getElementById('feedbackForm');
-    const stars = document.querySelectorAll('#starsDisplay label');
-    const avgScore = document.getElementById('avgScore');
-    const otherCheckbox = document.getElementById('otherFeaturesCheckbox');
+    document.getElementById('feedbackForm').addEventListener('submit', function (e) {
+      e.preventDefault(); // prevent default form submission
 
-    const rates = {
-      rating: { 'Excellent':5,'Good':4,'Okay':3,'Bad':2,'Very bad':1 },
-      ease:    { 'Very easy':5,'It’s okay':4,'Sometimes confusing':3,'Hard to use':2 },
-      ui:      { 'Yes':5,'It’s fine':4,'Needs to look better':3 },
-      reports: { 'Yes':5,'Somewhat':4,'Not really':3,'I don’t use them':2 }
-    };
+      const form = e.target;
+      const formData = new FormData(form);
 
-    function updateStars() {
-      const r = rates.rating[form.rating.value]||0;
-      const e = rates.ease[form.ease.value]||0;
-      const u = rates.ui[form.ui.value]||0;
-      const rp= rates.reports[form.reports.value]||0;
-      const avg=(r+e+u+rp)/4;
-      stars.forEach((s,i)=>s.classList.toggle('filled',i<Math.round(avg)));
-      avgScore.textContent=avg.toFixed(1);
-    }
-
-    function toggleDescription(id) {
-      const select = form.querySelector(`[name="${id}"]`);
-      const desc = document.getElementById(`${id}-description`);
-      let show = false;
-      const val = select.value;
-      if (id==='rating') show=['Bad','Very bad'].includes(val);
-      else if(id==='ease') show=['It’s okay','Sometimes confusing','Hard to use'].includes(val);
-      else if(id==='ui') show=['It’s fine','Needs to look better'].includes(val);
-      else if(id==='reports') show=['Somewhat','Not really'].includes(val);
-      else if(id==='additional') show=['Yes'].includes(val);
-      desc.style.display=show?'block':'none';
-    }
-
-    form.addEventListener('change',()=>{
-      updateStars();
-      document.getElementById('otherFeatures-description').style.display=otherCheckbox.checked?'block':'none';
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(response => {
+        if (response.ok) {
+          window.location.href = "https://mideastassistance.github.io/-feedback-form/thankyou.html";
+        } else {
+          alert("Something went wrong. Please try again later.");
+        }
+      })
+      .catch(error => {
+        alert("There was a problem submitting the form.");
+        console.error(error);
+      });
     });
-    window.addEventListener('load',()=>form.dispatchEvent(new Event('change')));
+
+    function toggleDescription(fieldId) {
+      const select = document.querySelector(`[name="${fieldId}"]`);
+      const description = document.getElementById(`${fieldId}-description`);
+      if (select && description) {
+        description.style.display = select.value ? 'block' : 'none';
+      }
+    }
   </script>
 </body>
 </html>
