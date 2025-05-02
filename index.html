@@ -20,6 +20,19 @@
     .average-score { text-align: center; margin-top: 10px; font-size: 18px; }
     button { background: #007BFF; color: white; padding: 10px 15px; border: none; border-radius: 6px; cursor: pointer; margin-top: 20px; width: 100%; }
     button:hover { background: #0056b3; }
+@media (max-width: 600px) {
+  .grid-layout {
+    grid-template-columns: 1fr; /* Stacks the checkboxes in one column */
+  }
+
+  .container {
+    padding: 15px; /* Reduced padding for smaller screens */
+  }
+
+  td img {
+    max-width: 100%; /* Ensure images take up full container width on small screens */
+  }
+}
   </style>
 </head>
 <body>
