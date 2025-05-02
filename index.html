@@ -33,14 +33,12 @@
       </tr>
     </table>
     <h2>Assistance System Feedback Form</h2>
-  
-    <form id="feedbackForm" action="https://formsubmit.co/it@mideast-assistance.com" method="POST">
-      
-     <!-- FormSubmit hidden fields -->
-     <input type="hidden" name="_subject" value="New Assistance System Feedback">
-     <input type="hidden" name="_template" value="table">
-     <input type="hidden" name="_captcha" value="false">  
-     <input type="hidden" name="_redirect" value="https://mideastassistance.github.io/-feedback-form/Thankyou.html"> <!-- Redirect after submission -->
+    <form id="feedbackForm" action="https://formsubmit.co/it@mideast-assistance.com" method="POST" onsubmit="handleFormSubmit(event)">
+      <label>Your Name</label>
+      <input type="text" name="name" required />
+
+      <label>Your Position</label>
+      <input type="text" name="position" required />
 
       <!-- Email Input for FormSubmit -->
       <label>Your Email</label>
@@ -180,11 +178,17 @@
       desc.style.display=show?'block':'none';
     }
 
-    form.addEventListener('change',()=>{
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      // Display a thank you message or redirect after form submission
+      alert("Thank you for your feedback!");
+      window.location.href = "thankyou.html"; // redirect to a thank you page
+    }
+
+    form.addEventListener('change',()=>{ 
       updateStars();
       document.getElementById('otherFeatures-description').style.display=otherCheckbox.checked?'block':'none';
     });
-    window.addEventListener('load',()=>form.dispatchEvent(new Event('change')));
   </script>
 </body>
 </html>
