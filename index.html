@@ -14,49 +14,37 @@
     .checkbox-item { display: flex; align-items: center; }
     .checkbox-item input { margin-right: 10px; width: 20px; height: 20px; }
     .dynamic-textarea { display: none; margin-top: 10px; }
+    .stars { display: flex; justify-content: center; gap: 5px; margin-top: 20px; }
+    .stars label { font-size: 24px; color: #ccc; }
+    .stars label.filled { color: gold; }
+    .average-score { text-align: center; margin-top: 10px; font-size: 18px; }
     button { background: #007BFF; color: white; padding: 10px 15px; border: none; border-radius: 6px; cursor: pointer; margin-top: 20px; width: 100%; }
     button:hover { background: #0056b3; }
   </style>
-  <script>
-    function toggleDescription(id) {
-      const value = document.querySelector(`select[name="${id}"]`).value;
-      const textarea = document.getElementById(`${id}-description`);
-      textarea.style.display = (value && value !== "Yes" && value !== "No" && value !== "Excellent" && value !== "Very easy") ? "block" : "none";
-    }
-
-    window.onload = function () {
-      document.getElementById("otherFeaturesCheckbox").addEventListener("change", function () {
-        document.getElementById("otherFeatures-description").style.display = this.checked ? "block" : "none";
-      });
-    };
-  </script>
 </head>
 <body>
   <div class="container">
-    <!-- Logos -->
-    <table>
+     <!-- Images Section -->
+     <table>
       <tr>
-        <td><img src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/Mideast%20Logo.png" style="width: 186px; height: 45px;" /></td>
-        <td><img src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/White.png" style="width: 211px; height: 114px;" /></td>
-        <td><img src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/Ian%20Logo.jpg" style="width: 183px; height: 95px;" /></td>
+        <td><img alt="" src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/Mideast%20Logo.png" style="width: 186px; height: 45px;" /></td>
+        <td>&nbsp;<img alt="" src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/White.png" style="width: 211.333px; height: 114.333px;" /></td>
+        <td><img alt="" src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/Ian%20Logo.jpg" style="width: 183px; height: 95.6667px;" /></td>
       </tr>
     </table>
-
     <h2>Assistance System Feedback Form</h2>
-
-    <form action="https://formsubmit.co/it@mideast-assistance.com" method="POST">
-      <!-- FormSubmit hidden fields -->
-      <input type="hidden" name="_subject" value="New Assistance System Feedback">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html">
-
+    <form id="feedbackForm" action="https://formsubmit.co/it@mideast-assistance.com" method="POST">
       <label>Your Name</label>
-      <input type="text" name="name" required>
+      <input type="text" name="name" required />
 
       <label>Your Position</label>
-      <input type="text" name="position" required>
+      <input type="text" name="position" required />
 
+      <!-- Email Input for FormSubmit -->
+      <label>Your Email</label>
+      <input type="email" name="email" required />
+
+      <!-- Q1 -->
       <label>1. How would you rate the system overall?</label>
       <select name="rating" required onchange="toggleDescription('rating')">
         <option value="" disabled selected>-Select-</option>
@@ -71,6 +59,7 @@
         <textarea name="rating_description" rows="3"></textarea>
       </div>
 
+      <!-- Q2 -->
       <label>2. Is the system easy to use?</label>
       <select name="ease" required onchange="toggleDescription('ease')">
         <option value="" disabled selected>-Select-</option>
@@ -84,6 +73,7 @@
         <textarea name="ease_description" rows="3"></textarea>
       </div>
 
+      <!-- Q3 -->
       <label>3. Do you like how the system looks?</label>
       <select name="ui" required onchange="toggleDescription('ui')">
         <option value="" disabled selected>-Select-</option>
@@ -96,6 +86,7 @@
         <textarea name="ui_description" rows="3"></textarea>
       </div>
 
+      <!-- Q4 -->
       <label>4. Are the reports easy to understand?</label>
       <select name="reports" required onchange="toggleDescription('reports')">
         <option value="" disabled selected>-Select-</option>
@@ -109,20 +100,22 @@
         <textarea name="reports_description" rows="3"></textarea>
       </div>
 
+      <!-- Q5 -->
       <label>5. Which parts of the system do you use the most?</label>
       <div class="grid-layout">
-        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Creating new cases"> Creating new cases</div>
-        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Client/policy info"> Client/policy info</div>
-        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Sending updates"> Sending updates or notes</div>
-        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Partner/clinic database"> Partner/clinic database</div>
-        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Reports"> Reports and follow-up</div>
-        <div class="checkbox-item"><input type="checkbox" id="otherFeaturesCheckbox" name="features[]" value="Other features"> Other features</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Creating new cases" /> Creating new cases</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Client/policy info" /> Client/policy info</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Sending updates" /> Sending updates or notes</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Partner/clinic database" /> Partner/clinic database</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Reports" /> Reports and follow-up</div>
+        <div class="checkbox-item"><input type="checkbox" id="otherFeaturesCheckbox" name="features[]" value="Other features" /> Other features</div>
       </div>
       <div id="otherFeatures-description" class="dynamic-textarea">
         <label>Please describe:</label>
         <textarea name="other_features_description" rows="3"></textarea>
       </div>
 
+      <!-- Q6 -->
       <label>6. Are there any new features you would like to see?</label>
       <select name="additional" required onchange="toggleDescription('additional')">
         <option value="" disabled selected>-Select-</option>
@@ -135,8 +128,61 @@
         <textarea name="additional_description" rows="3"></textarea>
       </div>
 
+      <!-- Stars & Average -->
+      <div class="stars" id="starsDisplay">
+        <label>&#9733;</label>
+        <label>&#9733;</label>
+        <label>&#9733;</label>
+        <label>&#9733;</label>
+        <label>&#9733;</label>
+      </div>
+      <div class="average-score">Average Score: <span id="avgScore">0</span>/5</div>
+
       <button type="submit">Submit Feedback</button>
     </form>
   </div>
+
+  <script>
+    const form = document.getElementById('feedbackForm');
+    const stars = document.querySelectorAll('#starsDisplay label');
+    const avgScore = document.getElementById('avgScore');
+    const otherCheckbox = document.getElementById('otherFeaturesCheckbox');
+
+    const rates = {
+      rating: { 'Excellent':5,'Good':4,'Okay':3,'Bad':2,'Very bad':1 },
+      ease:    { 'Very easy':5,'It’s okay':4,'Sometimes confusing':3,'Hard to use':2 },
+      ui:      { 'Yes':5,'It’s fine':4,'Needs to look better':3 },
+      reports: { 'Yes':5,'Somewhat':4,'Not really':3,'I don’t use them':2 }
+    };
+
+    function updateStars() {
+      const r = rates.rating[form.rating.value]||0;
+      const e = rates.ease[form.ease.value]||0;
+      const u = rates.ui[form.ui.value]||0;
+      const rp= rates.reports[form.reports.value]||0;
+      const avg=(r+e+u+rp)/4;
+      stars.forEach((s,i)=>s.classList.toggle('filled',i<Math.round(avg)));
+      avgScore.textContent=avg.toFixed(1);
+    }
+
+    function toggleDescription(id) {
+      const select = form.querySelector(`[name="${id}"]`);
+      const desc = document.getElementById(`${id}-description`);
+      let show = false;
+      const val = select.value;
+      if (id==='rating') show=['Bad','Very bad'].includes(val);
+      else if(id==='ease') show=['It’s okay','Sometimes confusing','Hard to use'].includes(val);
+      else if(id==='ui') show=['It’s fine','Needs to look better'].includes(val);
+      else if(id==='reports') show=['Somewhat','Not really'].includes(val);
+      else if(id==='additional') show=['Yes'].includes(val);
+      desc.style.display=show?'block':'none';
+    }
+
+    form.addEventListener('change',()=>{
+      updateStars();
+      document.getElementById('otherFeatures-description').style.display=otherCheckbox.checked?'block':'none';
+    });
+    window.addEventListener('load',()=>form.dispatchEvent(new Event('change')));
+  </script>
 </body>
 </html>
