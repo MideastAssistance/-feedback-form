@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Assistance System Feedback</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px; }
+    .container { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h2 { text-align: center; color: #007BFF; }
+    label { display: block; margin: 15px 0 5px; font-weight: bold; }
+    input, textarea, select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px; }
+    .grid-layout { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .checkbox-item { display: flex; align-items: center; }
+    .checkbox-item input { margin-right: 10px; width: 20px; height: 20px; }
+    .dynamic-textarea { display: none; margin-top: 10px; }
+    button { background: #007BFF; color: white; padding: 10px 15px; border: none; border-radius: 6px; cursor: pointer; margin-top: 20px; width: 100%; }
+    button:hover { background: #0056b3; }
+  </style>
+  <script>
+    function toggleDescription(id) {
+      const value = document.querySelector(`select[name="${id}"]`).value;
+      const textarea = document.getElementById(`${id}-description`);
+      textarea.style.display = (value && value !== "Yes" && value !== "No" && value !== "Excellent" && value !== "Very easy") ? "block" : "none";
+    }
+
+    window.onload = function () {
+      document.getElementById("otherFeaturesCheckbox").addEventListener("change", function () {
+        document.getElementById("otherFeatures-description").style.display = this.checked ? "block" : "none";
+      });
+    };
+  </script>
+</head>
+<body>
+  <div class="container">
+    <!-- Logos -->
+    <table>
+      <tr>
+        <td><img src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/Mideast%20Logo.png" style="width: 186px; height: 45px;" /></td>
+        <td><img src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/White.png" style="width: 211px; height: 114px;" /></td>
+        <td><img src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/Ian%20Logo.jpg" style="width: 183px; height: 95px;" /></td>
+      </tr>
+    </table>
+
+    <h2>Assistance System Feedback Form</h2>
+
+    <form action="https://formsubmit.co/it@mideast-assistance.com" method="POST">
+      <!-- FormSubmit hidden fields -->
+      <input type="hidden" name="_subject" value="New Assistance System Feedback">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://mideast-assistance.com/thank-you.html">
+
+      <label>Your Name</label>
+      <input type="text" name="name" required>
+
+      <label>Your Position</label>
+      <input type="text" name="position" required>
+
+      <label>1. How would you rate the system overall?</label>
+      <select name="rating" required onchange="toggleDescription('rating')">
+        <option value="" disabled selected>-Select-</option>
+        <option>Excellent</option>
+        <option>Good</option>
+        <option>Okay</option>
+        <option>Bad</option>
+        <option>Very bad</option>
+      </select>
+      <div id="rating-description" class="dynamic-textarea">
+        <label>Please describe:</label>
+        <textarea name="rating_description" rows="3"></textarea>
+      </div>
+
+      <label>2. Is the system easy to use?</label>
+      <select name="ease" required onchange="toggleDescription('ease')">
+        <option value="" disabled selected>-Select-</option>
+        <option>Very easy</option>
+        <option>It’s okay</option>
+        <option>Sometimes confusing</option>
+        <option>Hard to use</option>
+      </select>
+      <div id="ease-description" class="dynamic-textarea">
+        <label>Please describe:</label>
+        <textarea name="ease_description" rows="3"></textarea>
+      </div>
+
+      <label>3. Do you like how the system looks?</label>
+      <select name="ui" required onchange="toggleDescription('ui')">
+        <option value="" disabled selected>-Select-</option>
+        <option>Yes</option>
+        <option>It’s fine</option>
+        <option>Needs to look better</option>
+      </select>
+      <div id="ui-description" class="dynamic-textarea">
+        <label>Please describe:</label>
+        <textarea name="ui_description" rows="3"></textarea>
+      </div>
+
+      <label>4. Are the reports easy to understand?</label>
+      <select name="reports" required onchange="toggleDescription('reports')">
+        <option value="" disabled selected>-Select-</option>
+        <option>Yes</option>
+        <option>Somewhat</option>
+        <option>Not really</option>
+        <option>I don’t use them</option>
+      </select>
+      <div id="reports-description" class="dynamic-textarea">
+        <label>Please describe:</label>
+        <textarea name="reports_description" rows="3"></textarea>
+      </div>
+
+      <label>5. Which parts of the system do you use the most?</label>
+      <div class="grid-layout">
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Creating new cases"> Creating new cases</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Client/policy info"> Client/policy info</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Sending updates"> Sending updates or notes</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Partner/clinic database"> Partner/clinic database</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Reports"> Reports and follow-up</div>
+        <div class="checkbox-item"><input type="checkbox" id="otherFeaturesCheckbox" name="features[]" value="Other features"> Other features</div>
+      </div>
+      <div id="otherFeatures-description" class="dynamic-textarea">
+        <label>Please describe:</label>
+        <textarea name="other_features_description" rows="3"></textarea>
+      </div>
+
+      <label>6. Are there any new features you would like to see?</label>
+      <select name="additional" required onchange="toggleDescription('additional')">
+        <option value="" disabled selected>-Select-</option>
+        <option>Yes</option>
+        <option>Maybe later</option>
+        <option>No</option>
+      </select>
+      <div id="additional-description" class="dynamic-textarea">
+        <label>Please describe:</label>
+        <textarea name="additional_description" rows="3"></textarea>
+      </div>
+
+      <button type="submit">Submit Feedback</button>
+    </form>
+  </div>
+</body>
+</html>
