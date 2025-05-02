@@ -34,17 +34,18 @@
     </table>
     <h2>Assistance System Feedback Form</h2>
     <form id="feedbackForm" action="https://formsubmit.co/it@mideast-assistance.com" method="POST">
+      <!-- FormSubmit hidden fields -->
+      <input type="hidden" name="_subject" value="New Assistance System Feedback">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html">
+
       <label>Your Name</label>
-      <input type="text" name="name" required />
+      <input type="text" name="name" required>
 
       <label>Your Position</label>
-      <input type="text" name="position" required />
+      <input type="text" name="position" required>
 
-      <!-- Email Input for FormSubmit -->
-      <label>Your Email</label>
-      <input type="email" name="email" required />
-
-      <!-- Q1 -->
       <label>1. How would you rate the system overall?</label>
       <select name="rating" required onchange="toggleDescription('rating')">
         <option value="" disabled selected>-Select-</option>
@@ -59,7 +60,6 @@
         <textarea name="rating_description" rows="3"></textarea>
       </div>
 
-      <!-- Q2 -->
       <label>2. Is the system easy to use?</label>
       <select name="ease" required onchange="toggleDescription('ease')">
         <option value="" disabled selected>-Select-</option>
@@ -73,7 +73,6 @@
         <textarea name="ease_description" rows="3"></textarea>
       </div>
 
-      <!-- Q3 -->
       <label>3. Do you like how the system looks?</label>
       <select name="ui" required onchange="toggleDescription('ui')">
         <option value="" disabled selected>-Select-</option>
@@ -86,7 +85,6 @@
         <textarea name="ui_description" rows="3"></textarea>
       </div>
 
-      <!-- Q4 -->
       <label>4. Are the reports easy to understand?</label>
       <select name="reports" required onchange="toggleDescription('reports')">
         <option value="" disabled selected>-Select-</option>
@@ -100,22 +98,20 @@
         <textarea name="reports_description" rows="3"></textarea>
       </div>
 
-      <!-- Q5 -->
       <label>5. Which parts of the system do you use the most?</label>
       <div class="grid-layout">
-        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Creating new cases" /> Creating new cases</div>
-        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Client/policy info" /> Client/policy info</div>
-        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Sending updates" /> Sending updates or notes</div>
-        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Partner/clinic database" /> Partner/clinic database</div>
-        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Reports" /> Reports and follow-up</div>
-        <div class="checkbox-item"><input type="checkbox" id="otherFeaturesCheckbox" name="features[]" value="Other features" /> Other features</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Creating new cases"> Creating new cases</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Client/policy info"> Client/policy info</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Sending updates"> Sending updates or notes</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Partner/clinic database"> Partner/clinic database</div>
+        <div class="checkbox-item"><input type="checkbox" name="features[]" value="Reports"> Reports and follow-up</div>
+        <div class="checkbox-item"><input type="checkbox" id="otherFeaturesCheckbox" name="features[]" value="Other features"> Other features</div>
       </div>
       <div id="otherFeatures-description" class="dynamic-textarea">
         <label>Please describe:</label>
         <textarea name="other_features_description" rows="3"></textarea>
       </div>
 
-      <!-- Q6 -->
       <label>6. Are there any new features you would like to see?</label>
       <select name="additional" required onchange="toggleDescription('additional')">
         <option value="" disabled selected>-Select-</option>
@@ -128,6 +124,7 @@
         <textarea name="additional_description" rows="3"></textarea>
       </div>
 
+      <button type="submit">Submit Feedback</button>
       <!-- Stars & Average -->
       <div class="stars" id="starsDisplay">
         <label>&#9733;</label>
