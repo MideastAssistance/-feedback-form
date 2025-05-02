@@ -35,23 +35,20 @@
     <h2>Assistance System Feedback Form</h2>
   
     <form id="feedbackForm" action="https://formsubmit.co/it@mideast-assistance.com" method="POST">
-    <!-- Email Input for FormSubmit -->
-      <label>Your Name</label>
-      <input type="text" name="name" required />
-      <label>Your Position</label>
-      <input type="text" name="position" required />
-      <label>Your Email</label>
-      <input type="email" name="email" required />
       
      <!-- FormSubmit hidden fields -->
      <input type="hidden" name="_subject" value="New Assistance System Feedback">
      <input type="hidden" name="_template" value="table">
      <input type="hidden" name="_captcha" value="false">  
-     <input type="hidden" name="_redirect" value="https://mideastassistance.github.io/-feedback-form/thankyou.html"> <!-- Redirect after submission -->
+     <input type="hidden" name="_redirect" value="https://mideastassistance.github.io/-feedback-form/Thankyou.html"> <!-- Redirect after submission -->
 
-           <!-- Q1 -->
+      <!-- Email Input for FormSubmit -->
+      <label>Your Email</label>
+      <input type="email" name="email" required />
+
+      <!-- Q1 -->
       <label>1. How would you rate the system overall?</label>
-      <select name="1. How would you rate the system overall?" required onchange="toggleDescription('1. How would you rate the system overall?')">
+      <select name="rating" required onchange="toggleDescription('rating')">
         <option value="" disabled selected>-Select-</option>
         <option>Excellent</option>
         <option>Good</option>
@@ -66,7 +63,7 @@
 
       <!-- Q2 -->
       <label>2. Is the system easy to use?</label>
-      <select name="2. Is the system easy to use?" required onchange="toggleDescription('2. Is the system easy to use?')">
+      <select name="ease" required onchange="toggleDescription('ease')">
         <option value="" disabled selected>-Select-</option>
         <option>Very easy</option>
         <option>It’s okay</option>
@@ -80,7 +77,7 @@
 
       <!-- Q3 -->
       <label>3. Do you like how the system looks?</label>
-      <select name="3. Do you like how the system looks?" required onchange="toggleDescription('3. Do you like how the system looks?')">
+      <select name="ui" required onchange="toggleDescription('ui')">
         <option value="" disabled selected>-Select-</option>
         <option>Yes</option>
         <option>It’s fine</option>
@@ -93,7 +90,7 @@
 
       <!-- Q4 -->
       <label>4. Are the reports easy to understand?</label>
-      <select name="4. Are the reports easy to understand?" required onchange="toggleDescription('4. Are the reports easy to understand?')">
+      <select name="reports" required onchange="toggleDescription('reports')">
         <option value="" disabled selected>-Select-</option>
         <option>Yes</option>
         <option>Somewhat</option>
@@ -122,7 +119,7 @@
 
       <!-- Q6 -->
       <label>6. Are there any new features you would like to see?</label>
-      <select name="6. Are there any new features you would like to see?" required onchange="toggleDescription('6. Are there any new features you would like to see?')">
+      <select name="additional" required onchange="toggleDescription('additional')">
         <option value="" disabled selected>-Select-</option>
         <option>Yes</option>
         <option>Maybe later</option>
@@ -161,10 +158,10 @@
     };
 
     function updateStars() {
-      const r = rates.1. How would you rate the system overall?[form.rating.value]||0;
-      const e = rates.2. Is the system easy to use?[form.ease.value]||0;
-      const u = rates.3. Do you like how the system looks?[form.ui.value]||0;
-      const rp= rates.4. Are the reports easy to understand?[form.reports.value]||0;
+      const r = rates.rating[form.rating.value]||0;
+      const e = rates.ease[form.ease.value]||0;
+      const u = rates.ui[form.ui.value]||0;
+      const rp= rates.reports[form.reports.value]||0;
       const avg=(r+e+u+rp)/4;
       stars.forEach((s,i)=>s.classList.toggle('filled',i<Math.round(avg)));
       avgScore.textContent=avg.toFixed(1);
@@ -175,18 +172,13 @@
       const desc = document.getElementById(`${id}-description`);
       let show = false;
       const val = select.value;
-      if (id==='1. How would you rate the system overall?') show=['Bad','Very bad'].includes(val);
-      else if(id==='2. Is the system easy to use?') show=['It’s okay','Sometimes confusing','Hard to use'].includes(val);
-      else if(id==='3. Do you like how the system looks?') show=['It’s fine','Needs to look better'].includes(val);
-      else if(id==='4. Are the reports easy to understand?') show=['Somewhat','Not really'].includes(val);
-      else if(id==='6. Are there any new features you would like to see?') show=['Yes'].includes(val);
+      if (id==='rating') show=['Bad','Very bad'].includes(val);
+      else if(id==='ease') show=['It’s okay','Sometimes confusing','Hard to use'].includes(val);
+      else if(id==='ui') show=['It’s fine','Needs to look better'].includes(val);
+      else if(id==='reports') show=['Somewhat','Not really'].includes(val);
+      else if(id==='additional') show=['Yes'].includes(val);
       desc.style.display=show?'block':'none';
     }
-    function handleFormSubmit(event) {
-  event.preventDefault();
-  // Display a thank you message or redirect after form submission
-  window.location.href = "https://mideastassistance.github.io/-feedback-form/thankyou.html"; // redirect to the external URL
-}
 
     form.addEventListener('change',()=>{
       updateStars();
