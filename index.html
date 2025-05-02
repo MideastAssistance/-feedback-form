@@ -51,7 +51,7 @@
 
            <!-- Q1 -->
       <label>1. How would you rate the system overall?</label>
-      <select name="rating" required onchange="toggleDescription('rating')">
+      <select name="1. How would you rate the system overall?" required onchange="toggleDescription('rating')">
         <option value="" disabled selected>-Select-</option>
         <option>Excellent</option>
         <option>Good</option>
@@ -66,7 +66,7 @@
 
       <!-- Q2 -->
       <label>2. Is the system easy to use?</label>
-      <select name="ease" required onchange="toggleDescription('ease')">
+      <select name="2. Is the system easy to use?" required onchange="toggleDescription('ease')">
         <option value="" disabled selected>-Select-</option>
         <option>Very easy</option>
         <option>It’s okay</option>
@@ -80,7 +80,7 @@
 
       <!-- Q3 -->
       <label>3. Do you like how the system looks?</label>
-      <select name="ui" required onchange="toggleDescription('ui')">
+      <select name="3. Do you like how the system looks?" required onchange="toggleDescription('ui')">
         <option value="" disabled selected>-Select-</option>
         <option>Yes</option>
         <option>It’s fine</option>
@@ -93,7 +93,7 @@
 
       <!-- Q4 -->
       <label>4. Are the reports easy to understand?</label>
-      <select name="reports" required onchange="toggleDescription('reports')">
+      <select name="4. Are the reports easy to understand?" required onchange="toggleDescription('reports')">
         <option value="" disabled selected>-Select-</option>
         <option>Yes</option>
         <option>Somewhat</option>
@@ -122,7 +122,7 @@
 
       <!-- Q6 -->
       <label>6. Are there any new features you would like to see?</label>
-      <select name="additional" required onchange="toggleDescription('additional')">
+      <select name="6. Are there any new features you would like to see?" required onchange="toggleDescription('additional')">
         <option value="" disabled selected>-Select-</option>
         <option>Yes</option>
         <option>Maybe later</option>
@@ -182,7 +182,12 @@
       else if(id==='additional') show=['Yes'].includes(val);
       desc.style.display=show?'block':'none';
     }
-
+function handleFormSubmit(event) {
+  event.preventDefault();
+  // Display a thank you message or redirect after form submission
+  alert("Thank you for your feedback!");
+  window.location.href = "https://www.example.com"; // redirect to the external URL
+}
     form.addEventListener('change',()=>{
       updateStars();
       document.getElementById('otherFeatures-description').style.display=otherCheckbox.checked?'block':'none';
