@@ -15,7 +15,7 @@
     .checkbox-item input { margin-right: 10px; width: 20px; height: 20px; }
     .dynamic-textarea { display: none; margin-top: 10px; }
     .stars { display: flex; justify-content: center; gap: 5px; margin-top: 20px; }
-    .stars label { font-size: 24px; color: #ccc; cursor: pointer; }
+    .stars label { font-size: 24px; color: #ccc; }
     .stars label.filled { color: gold; }
     .average-score { text-align: center; margin-top: 10px; font-size: 18px; }
     button { background: #007BFF; color: white; padding: 10px 15px; border: none; border-radius: 6px; cursor: pointer; margin-top: 20px; width: 100%; }
@@ -24,21 +24,17 @@
 </head>
 <body>
   <div class="container">
-    <!-- Images Section -->
-    <table>
-      <tr>
-        <td><img alt="" src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/Mideast%20Logo.png" style="width: 186px; height: 45px;" /></td>
-        <td>&nbsp;<img alt="" src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/White.png" style="width: 211.333px; height: 114.333px;" /></td>
-        <td><img alt="" src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/Ian%20Logo.jpg" style="width: 183px; height: 95.6667px;" /></td>
-      </tr>
-    </table>
     <h2>Assistance System Feedback Form</h2>
-    <form action="https://formsubmit.co/YOUR_EMAIL" method="POST" id="feedbackForm">
+    <form id="feedbackForm" action="https://formsubmit.co/YOUR_EMAIL" method="POST">
       <label>Your Name</label>
       <input type="text" name="name" required />
 
       <label>Your Position</label>
       <input type="text" name="position" required />
+
+      <!-- Email Input for FormSubmit -->
+      <label>Your Email</label>
+      <input type="email" name="email" required />
 
       <!-- Q1 -->
       <label>1. How would you rate the system overall?</label>
@@ -124,30 +120,61 @@
         <textarea name="additional_description" rows="3"></textarea>
       </div>
 
-      <button type="submit">Submit</button>
+      <!-- Stars & Average -->
+      <div class="stars" id="starsDisplay">
+        <label>&#9733;</label>
+        <label>&#9733;</label>
+        <label>&#9733;</label>
+        <label>&#9733;</label>
+        <label>&#9733;</label>
+      </div>
+      <div class="average-score">Average Score: <span id="avgScore">0</span>/5</div>
+
+      <button type="submit">Submit Feedback</button>
     </form>
   </div>
 
   <script>
     const form = document.getElementById('feedbackForm');
+    const stars = document.querySelectorAll('#starsDisplay label');
+    const avgScore = document.getElementById('avgScore');
     const otherCheckbox = document.getElementById('otherFeaturesCheckbox');
 
-    function toggleDescription(id) {
-      const sel = form.querySelector(`[name="${id}"]`);
-      const desc = document.getElementById(`${id}-description`);
-      let show = false;
-      if (id === 'rating')    show = ['Bad','Very bad'].includes(sel.value);
-      if (id === 'ease')      show = ['It’s okay','Sometimes confusing','Hard to use'].includes(sel.value);
-      if (id === 'ui')        show = ['It’s fine','Needs to look better'].includes(sel.value);
-      if (id === 'reports')   show = ['Somewhat','Not really'].includes(sel.value);
-      if (id === 'additional')show = (sel.value === 'Yes');
-      desc.style.display = show ? 'block' : 'none';
+    const rates = {
+      rating: { 'Excellent':5,'Good':4,'Okay':3,'Bad':2,'Very bad':1 },
+      ease:    { 'Very easy':5,'It’s okay':4,'Sometimes confusing':3,'Hard to use':2 },
+      ui:      { 'Yes':5,'It’s fine':4,'Needs to look better':3 },
+      reports: { 'Yes':5,'Somewhat':4,'Not really':3,'I don’t use them':2 }
+    };
+
+    function updateStars() {
+      const r = rates.rating[form.rating.value]||0;
+      const e = rates.ease[form.ease.value]||0;
+      const u = rates.ui[form.ui.value]||0;
+      const rp= rates.reports[form.reports.value]||0;
+      const avg=(r+e+u+rp)/4;
+      stars.forEach((s,i)=>s.classList.toggle('filled',i<Math.round(avg)));
+      avgScore.textContent=avg.toFixed(1);
     }
 
-    otherCheckbox.addEventListener('change', () => {
-      document.getElementById('otherFeatures-description').style.display =
-        otherCheckbox.checked ? 'block' : 'none';
+    function toggleDescription(id) {
+      const select = form.querySelector(`[name="${id}"]`);
+      const desc = document.getElementById(`${id}-description`);
+      let show = false;
+      const val = select.value;
+      if (id==='rating') show=['Bad','Very bad'].includes(val);
+      else if(id==='ease') show=['It’s okay','Sometimes confusing','Hard to use'].includes(val);
+      else if(id==='ui') show=['It’s fine','Needs to look better'].includes(val);
+      else if(id==='reports') show=['Somewhat','Not really'].includes(val);
+      else if(id==='additional') show=['Yes'].includes(val);
+      desc.style.display=show?'block':'none';
+    }
+
+    form.addEventListener('change',()=>{
+      updateStars();
+      document.getElementById('otherFeatures-description').style.display=otherCheckbox.checked?'block':'none';
     });
+    window.addEventListener('load',()=>form.dispatchEvent(new Event('change')));
   </script>
 </body>
 </html>
