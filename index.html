@@ -24,8 +24,8 @@
 </head>
 <body>
   <div class="container">
-     <!-- Images Section -->
-     <table>
+    <!-- Images Section -->
+    <table>
       <tr>
         <td><img alt="" src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/Mideast%20Logo.png" style="width: 186px; height: 45px;" /></td>
         <td>&nbsp;<img alt="" src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/White.png" style="width: 211.333px; height: 114.333px;" /></td>
@@ -123,6 +123,7 @@
         <label>Please describe:</label>
         <textarea name="additional_description" rows="3"></textarea>
       </div>
+
       <!-- Stars & Average -->
       <div class="stars" id="starsDisplay">
         <label>&#9733;</label>
@@ -172,26 +173,10 @@
       else if(id==='additional') show=['Yes'].includes(val);
       desc.style.display=show?'block':'none';
     }
-    form.addEventListener('change',()=>{
+
+    form.addEventListener('submit', function(e) {
       updateStars();
-      document.getElementById('otherFeatures-description').style.display=otherCheckbox.checked?'block':'none';
     });
-    window.addEventListener('load',()=>form.dispatchEvent(new Event('change')));
-
-   // Function to handle redirection
-  function redirectToThankYouPage(event) {
-    // Prevent the form from submitting immediately
-    event.preventDefault();
-
-    // Redirect to a thank you page (change the URL to your desired redirect link)
-    window.location.href = ""; 
-    // Optionally, you can submit the form here using AJAX or after a short delay.
-    setTimeout(function() {
-      event.target.submit();  // Submit the form after redirecting
-    }, 2000);  // Adjust delay as necessary
-  }
-  // Attach the redirection function to the form
-  document.getElementById('feedbackForm').addEventListener('submit', redirectToThankYouPage);
   </script>
 </body>
 </html>
