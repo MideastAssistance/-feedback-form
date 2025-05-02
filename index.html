@@ -187,29 +187,6 @@
       document.getElementById('otherFeatures-description').style.display=otherCheckbox.checked?'block':'none';
     });
     window.addEventListener('load',()=>form.dispatchEvent(new Event('change')));
-    <script>
-  document.getElementById('feedbackForm').onsubmit = function(event) {
-    event.preventDefault(); // Prevent default form submission
-
-    // Form submission via AJAX
-    const form = new FormData(this);
-    fetch(this.action, {
-      method: 'POST',
-      body: form
-    })
-    .then(response => {
-      if (response.ok) {
-        // Redirect after successful submission
-        window.location.href = "https://mideastassistance.github.io/-feedback-form/thankyou.html";
-      } else {
-        alert('Submission failed. Please try again.');
-      }
-    })
-    .catch(error => {
-      alert('Error: ' + error);
-    });
-  };
-</script>
-  </script>
+     </script>
 </body>
 </html>
