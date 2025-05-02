@@ -24,8 +24,8 @@
 </head>
 <body>
   <div class="container">
-     <!-- Images Section -->
-     <table>
+    <!-- Images Section -->
+    <table>
       <tr>
         <td><img alt="" src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/Mideast%20Logo.png" style="width: 186px; height: 45px;" /></td>
         <td>&nbsp;<img alt="" src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/White.png" style="width: 211.333px; height: 114.333px;" /></td>
@@ -33,24 +33,25 @@
       </tr>
     </table>
     <h2>Assistance System Feedback Form</h2>
-  
-    <form id="feedbackForm" action="https://formsubmit.co/it@mideast-assistance.com" method="POST">
-    <!-- Email Input for FormSubmit -->
-          <label>Your Name</label>
-          <input type="text" name="name" required />
-    
-          <label>Your Position</label>
-          <input type="text" name="position" required />
-          <label>Your Email</label>
-          <input type="email" name="email" required />
-      
-     <!-- FormSubmit hidden fields -->
-     <input type="hidden" name="_subject" value="New Assistance System Feedback">
-     <input type="hidden" name="_template" value="table">
-     <input type="hidden" name="_captcha" value="false">  
-     <input type="hidden" name="_redirect" value="https://mideastassistance.github.io/-feedback-form/thankyou.html"> <!-- Redirect after submission -->
 
-           <!-- Q1 -->
+    <form id="feedbackForm" action="https://formsubmit.co/it@mideast-assistance.com" method="POST">
+      <!-- Email Input for FormSubmit -->
+      <label>Your Name</label>
+      <input type="text" name="name" required />
+
+      <label>Your Position</label>
+      <input type="text" name="position" required />
+      
+      <label>Your Email</label>
+      <input type="email" name="email" required />
+
+      <!-- FormSubmit hidden fields -->
+      <input type="hidden" name="_subject" value="New Assistance System Feedback">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_redirect" value="https://mideastassistance.github.io/-feedback-form/thankyou.html"> <!-- Redirect after submission -->
+
+      <!-- Q1 -->
       <label>1. How would you rate the system overall?</label>
       <select name="rating" required onchange="toggleDescription('rating')">
         <option value="" disabled selected>-Select-</option>
@@ -147,6 +148,7 @@
       <button type="submit">Submit Feedback</button>
     </form>
   </div>
+
   <script>
     const form = document.getElementById('feedbackForm');
     const stars = document.querySelectorAll('#starsDisplay label');
@@ -180,13 +182,10 @@
       else if(id==='ui') show=['It’s fine','Needs to look better'].includes(val);
       else if(id==='reports') show=['Somewhat','Not really'].includes(val);
       else if(id==='additional') show=['Yes'].includes(val);
-      desc.style.display=show?'block':'none';
+      desc.style.display = show ? 'block' : 'none';
     }
-    form.addEventListener('change',()=>{
-      updateStars();
-      document.getElementById('otherFeatures-description').style.display=otherCheckbox.checked?'block':'none';
-    });
-    window.addEventListener('load',()=>form.dispatchEvent(new Event('change')));
-     </script>
+
+    form.addEventListener('submit', updateStars);
+  </script>
 </body>
 </html>
