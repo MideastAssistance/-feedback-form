@@ -20,6 +20,29 @@
     .average-score { text-align: center; margin-top: 10px; font-size: 18px; }
     button { background: #007BFF; color: white; padding: 10px 15px; border: none; border-radius: 6px; cursor: pointer; margin-top: 20px; width: 100%; }
     button:hover { background: #0056b3; }
+
+    /* Media Query for smaller screens (mobile responsiveness) */
+    @media (max-width: 768px) {
+      .grid-layout {
+        grid-template-columns: 1fr; /* Stack the grid items on mobile */
+      }
+      .container {
+        padding: 15px; /* Adjust padding on smaller screens */
+      }
+      h2 {
+        font-size: 1.5rem; /* Adjust title size */
+      }
+      label, input, textarea, select {
+        font-size: 0.9rem; /* Adjust text and input sizes for readability */
+      }
+      button {
+        font-size: 1rem; /* Adjust button text size */
+      }
+      .stars label {
+        font-size: 20px; /* Adjust star size for smaller screens */
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -178,53 +201,13 @@
       const val = select.value;
       
       if (id === 'rating') show = ['Bad', 'Very bad'].includes(val);
-      else if (id === 'ease') show = ['It’s okay', 'Sometimes confusing', 'Hard to use'].includes(val);
-      else if (id === 'ui') show = ['It’s fine', 'Needs to look better'].includes(val);
-      else if (id === 'reports') show = ['Somewhat', 'Not really'].includes(val);
-      else if (id === 'additional') show = ['Yes'].includes(val);
-      
+      else if (id === 'ease') show = ['Hard to use', 'Sometimes confusing'].includes(val);
+      else if (id === 'ui') show = ['Needs to look better'].includes(val);
+      else if (id === 'reports') show = ['Not really'].includes(val);
+      else if (id === 'otherFeatures') show = select.checked;
+
       desc.style.display = show ? 'block' : 'none';
     }
-
-    form.addEventListener('change', () => {
-      updateStars();
-      document.getElementById('otherFeatures-description').style.display = otherCheckbox.checked ? 'block' : 'none';
-      toggleDescription('rating');
-      toggleDescription('ease');
-      toggleDescription('ui');
-      toggleDescription('reports');
-    });
-
-    window.addEventListener('load', () => form.dispatchEvent(new Event('change')));
-
-    // Handle custom form submission
-    function handleSubmit(event) {
-      event.preventDefault(); // Prevent the default form submission
-
-      // Send form data via fetch to FormSubmit endpoint
-      const formData = new FormData(form);
-
-      // Make a POST request to FormSubmit
-      fetch('https://formsubmit.co/it@mideast-assistance.com', {
-        method: 'POST',
-        body: formData
-      })
-        .then(response => {
-          if (response.ok) {
-            // Redirect to your custom thank you page
-            window.location.href = "https://www.example.com/thankyou"; // Replace with your custom URL
-          } else {
-            alert('There was an error submitting your form. Please try again.');
-          }
-        })
-        .catch(error => {
-          alert('An error occurred. Please try again later.');
-        });
-    }
-
-    // Attach form submit event
-    form.addEventListener('submit', handleSubmit);
 </script>
-
 </body>
 </html>
