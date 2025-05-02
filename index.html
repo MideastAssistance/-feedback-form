@@ -29,7 +29,7 @@
       <tr>
         <td><img alt="" src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/Mideast%20Logo.png" style="width: 186px; height: 45px;" /></td>
         <td>&nbsp;<img alt="" src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/White.png" style="width: 211.333px; height: 114.333px;" /></td>
-        <td><img src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/ian-logo-for-registration-(7x7)-3.jpg" style="width: 183px; height: 95px;" /></td>
+        <td><img alt="" src="https://agents.mideast-assistance.com/printoutimages/2023%20Logos/Ian%20Logo.jpg" style="width: 183px; height: 95.6667px;" /></td>
       </tr>
     </table>
     <h2>Assistance System Feedback Form</h2>
@@ -183,35 +183,35 @@
       else if(id==='additional') show=['Yes'].includes(val);
       desc.style.display=show?'block':'none';
     }
-    function handleFormSubmit(event) {
-  event.preventDefault();
-  // Display a thank you message or redirect after form submission
-  window.location.href = "https://mideastassistance.github.io/-feedback-form/thankyou.html"; // redirect to the external URL
-}
     form.addEventListener('change',()=>{
       updateStars();
       document.getElementById('otherFeatures-description').style.display=otherCheckbox.checked?'block':'none';
     });
     window.addEventListener('load',()=>form.dispatchEvent(new Event('change')));
-  </script>
-  <script>
-    function toggleDescription(fieldName) {
-      const select = document.querySelector(`select[name="${fieldName}"]`);
-      const descDiv = document.getElementById(`${fieldName}-description`);
-      if (!select || !descDiv) return;
+    function handleSubmit(event) {
+    event.preventDefault(); // Prevent the form from submitting the default way
 
-      const value = select.value.trim().toLowerCase();
-      if (value && value !== "-select-") {
-        descDiv.style.display = "block";
+    // Send the form data via fetch to FormSubmit endpoint
+    const form = document.getElementById('feedbackForm');
+    const formData = new FormData(form);
+
+    // Make a POST request to FormSubmit
+    fetch('https://formsubmit.co/it@mideast-assistance.com', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => {
+      if (response.ok) {
+        // Redirect to your custom thank you page
+        window.location.href = "https://www.example.com/thankyou"; // Change this URL to your desired redirect page
       } else {
-        descDiv.style.display = "none";
+        alert('There was an error submitting your form. Please try again.');
       }
-    }
-
-    // Optional: run this once on page load to set correct initial state
-    document.addEventListener("DOMContentLoaded", function() {
-      ["rating", "ease", "ui", "reports"].forEach(toggleDescription);
+    })
+    .catch(error => {
+      alert('An error occurred. Please try again later.');
     });
+  }
   </script>
 </body>
 </html>
